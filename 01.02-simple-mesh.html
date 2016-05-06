@@ -83,13 +83,13 @@
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(0x000000, 1.0);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        //renderer.shadowMapEnabled = true;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(20, 20);
         var planeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.receiveShadow = true;
+        //plane.receiveShadow = true;
 
         // rotate and position the plane
         plane.rotation.x = -0.5 * Math.PI;
@@ -105,7 +105,7 @@
         var cubeMaterial = new THREE.MeshLambertMaterial({color: 'red'});
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
-        cube.castShadow = true;
+        //cube.castShadow = true;
         cube.position.x = 0.1;
         cube.position.y = 0;
         cube.position.z = 0;
@@ -145,6 +145,9 @@
 
         scene.add(spotLight);
 
+        var spotLight2 = new THREE.SpotLight(0xffffff);
+        spotLight2.position.set(-10, -20, -20);
+        scene.add(spotLight2);
 
         // add the output of the renderer to the html element
         document.body.appendChild(renderer.domElement);
