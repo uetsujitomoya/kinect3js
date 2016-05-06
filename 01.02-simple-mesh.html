@@ -45,6 +45,7 @@
     var control;
     var cameraControl;
     var stats;
+    var sphere =[];
 
     /**
      * Initializes the scene, camera and objects. Called when the window is
@@ -112,8 +113,8 @@
         
         var sphereGeo = new THREE.SphereGeometry(0.10);  // 半径10の球
         var greanMaterial = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
-        var sphere = [];
-        
+
+        if(h<face.length){console.log(h);}
         for(i=0;i<36;i++){
           
           sphere[i] = new THREE.Mesh( sphereGeo, greanMaterial );
@@ -175,7 +176,13 @@
         // render using requestAnimationFrame
         stats.update();
         requestAnimationFrame(render);
-        h++;
+        if(h<face.length){h++;}
+        for(i=0;i<36;i++){
+          sphere[i].position.x = (face[h][i][0])*50;
+          sphere[i].position.y = (face[h][i][1])*50;
+          sphere[i].position.z = (face[h][i][2])*50-60;
+          scene.add( sphere[i] );
+      	}
         cameraControl.update();
         renderer.render(scene, camera);
     }
