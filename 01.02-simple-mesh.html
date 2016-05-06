@@ -18,8 +18,11 @@
     var data = csv2Array('HDFaceData.csv');
 
 
-    var h,i,j;
+    var g,h,i,j;
     h=0;
+    g=0;
+    
+    var N=2;
     var face = [];
     
     
@@ -176,13 +179,17 @@
         // render using requestAnimationFrame
         stats.update();
         requestAnimationFrame(render);
-        if(h<face.length){h++;}
-        for(i=0;i<36;i++){
-          sphere[i].position.x = (face[h][i][0])*50;
-          sphere[i].position.y = (face[h][i][1])*50;
-          sphere[i].position.z = (face[h][i][2])*50-60;
-          scene.add( sphere[i] );
-      	}
+        
+        if(g<face.length*N){g++;}
+        if(g%N==0){h++;
+          for(i=0;i<36;i++){
+            sphere[i].position.x = (face[h][i][0])*50;
+            sphere[i].position.y = (face[h][i][1])*50;
+            sphere[i].position.z = (face[h][i][2])*50-60;
+            scene.add( sphere[i] );
+        	}
+        }
+        
         cameraControl.update();
         renderer.render(scene, camera);
     }
