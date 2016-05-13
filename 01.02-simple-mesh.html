@@ -21,15 +21,16 @@
     var g,h,i,j;
     h=0;
     g=0;
-    
+
     var N=2;
+    var M=115;
     var face = [];
-    
-    
+
+
     data.forEach((item) => {
     	//console.log(item);
     	face[h]=[];
-    	for(i=0;i<36;i++){
+    	for(i=0;i<M;i++){
     		face[h][i]=[];
     		for(j=0;j<5;j++){
     			face[h][i][j]=data[h][i*5+j+1];
@@ -38,7 +39,7 @@
     	h++;
     });
     h=0;
-    
+
     console.log(face);
 
     // global variables
@@ -57,7 +58,7 @@
     function init() {
 
         // create a scene, that will hold all our elements such as objects, cameras and lights.
-        
+
 
         scene = new THREE.Scene();
 
@@ -112,23 +113,23 @@
 
         // add the cube to the scene
         //scene.add(cube);
-        
-        
+
+
         var sphereGeo = new THREE.SphereGeometry(0.10);  // 半径10の球
         var greanMaterial = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
 
         if(h<face.length){console.log(h);}
-        for(i=0;i<36;i++){
-          
+        for(i=0;i<M;i++){
+
           sphere[i] = new THREE.Mesh( sphereGeo, greanMaterial );
           sphere[i].position.x = (face[h][i][0])*50;
           sphere[i].position.y = (face[h][i][1])*50;
           sphere[i].position.z = (face[h][i][2])*50-60;
           scene.add( sphere[i] );
       	}
-        
 
-        
+
+
 
         // position and point the camera to the center of the scene
         camera.position.x = 15;
@@ -161,7 +162,7 @@
      * Called when the scene needs to be rendered. Delegates to requestAnimationFrame
      * for future renders
      */
-     
+
     function addStatsObject() {
         stats = new Stats();
         stats.setMode(0);
@@ -171,38 +172,38 @@
         stats.domElement.style.top = '0px';
 
         document.body.appendChild(stats.domElement);
-    }     
-     
+    }
+
     function addControlGui(controlObject) {
         var gui = new dat.GUI();
         gui.add(controlObject, 'rotationSpeed', -0.01, 0.01);
     }
-     
+
     function render() {
         // render using requestAnimationFrame
         stats.update();
         requestAnimationFrame(render);
-        
+
         if(g<face.length*N){g++;}
         if(g%N==0){h++;
-          for(i=0;i<36;i++){
+          for(i=0;i<M;i++){
             sphere[i].position.x = (face[h][i][0])*50;
             sphere[i].position.y = (face[h][i][1])*50;
             sphere[i].position.z = (face[h][i][2])*50-60;
             scene.add( sphere[i] );
         	}
         }
-        
+
         cameraControl.update();
         renderer.render(scene, camera);
     }
-    
+
     function csv2Array(filePath) { //csvﾌｧｲﾙﾉ相対ﾊﾟｽor絶対ﾊﾟｽ
     	var csvData = [];
     	var data = new XMLHttpRequest();
     	data.open("GET", filePath, false); //true:非同期,false:同期
     	data.send(null);
-    
+
     	var LF = String.fromCharCode(10); //改行ｺｰﾄﾞ
     	var lines = data.responseText.split(LF);
     	for (var i = 0; i < lines.length;++i) {
