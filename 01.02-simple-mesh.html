@@ -15,8 +15,8 @@
     </style>
 </head>
 <script>
-    var data = csv2Array('HDFaceData.csv');
-
+    var data = csv2Array('HDFaceVertex.csv');
+    console.log(data);
 
     var g,h,i,j;
     h=0;
@@ -32,7 +32,7 @@
     	for(i=0;i<36;i++){
     		face[h][i]=[];
     		for(j=0;j<5;j++){
-    			face[h][i][j]=data[h][i*5+j+13];
+    			face[h][i][j]=data[h][i*5+j+1];
     		}
     	}
     	h++;
